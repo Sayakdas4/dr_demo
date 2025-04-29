@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import DarkModeSwitcher from "@/components/DarkModeSwitcher";
+import BodyWrapper from "@/components/BodyWrapper";
+import { Providers } from './providers';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,13 +25,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const fontVars = `${geistSans.variable} ${geistMono.variable}`;
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    <html lang="en" className="ssss">
+      <head>
+        <link rel="stylesheet" href="/dist/css/style-theme.css" />
+      </head>
+      {/* <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased login`}
       >
         {children}
-      </body>
+        <DarkModeSwitcher />
+      </body> */}
+      <BodyWrapper fonts={fontVars}>
+        <Providers>
+          {children}
+        </Providers>
+        {/* <DarkModeSwitcher /> */}
+      </BodyWrapper>
     </html>
   );
 }
